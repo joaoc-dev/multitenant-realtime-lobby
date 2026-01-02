@@ -5,10 +5,14 @@
   "description": "Real-Time Multiplayer Lobby System (Multi-Tenant)",
   "main": "index.js",
   "scripts": {
+    "dev": "concurrently --names \"API,CLIENT\" --prefix-colors \"blue,green\" \"cd apps/server/1 - Presentation/Presentation.WebAPI && dotnet watch run\" \"cd apps/client && pnpm dev\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "packageManager": "pnpm@10.13.1"
+  "packageManager": "pnpm@10.13.1",
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
 }
