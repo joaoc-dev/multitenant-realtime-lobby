@@ -1,3 +1,5 @@
 <Solution>
-  <Project Path="1 - Presentation/Presentation.WebAPI/Presentation.WebAPI.csproj" />
+  <Folder Name="/1 - Presentation/">
+    <Project Path="1 - Presentation/Presentation.WebAPI/Presentation.WebAPI.csproj" />
+  </Folder>
 </Solution>
