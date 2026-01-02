@@ -1,0 +1,54 @@
+############################################
+# Monorepo .gitignore (React + .NET)
+############################################
+
+node_modules/
+**/node_modules/
+dist/
+build/
+coverage/
+*.lcov
+*.tsbuildinfo
+
+# Logs
+logs
+log/
+*.log
+*.log.*
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# -----------------------
+# .NET / Visual Studio
+# -----------------------
+.vs/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+TestResults/
+artifacts/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.svclog
+
+# NuGet
+*.nupkg
+*.snupkg
+
+# Rider / ReSharper
+_ReSharper*/
+*.[Rr]e[Ss]harper
+*.DotSettings.user
+
+# -----------------------
+# OS / Editor
+# -----------------------
+
+.idea/
+.DS_Store
+Thumbs.db
