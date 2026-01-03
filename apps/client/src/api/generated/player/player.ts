@@ -5,7 +5,8 @@
  * OpenAPI spec version: 1.0.0
  */
 import type {
-  ConnectRequest
+  ConnectRequest,
+  DisconnectRequest
 } from '.././models';
 
 import { customInstance } from '../../mutator';
@@ -39,6 +40,39 @@ export const postApiPlayersConnect = async (connectRequest: ConnectRequest, opti
     headers: { 'Content-Type': 'application/json', ...options?.headers },
     body: JSON.stringify(
       connectRequest,)
+  }
+);}
+
+
+export type postApiPlayersDisconnectResponse200 = {
+  data: void
+  status: 200
+}
+    
+export type postApiPlayersDisconnectResponseSuccess = (postApiPlayersDisconnectResponse200) & {
+  headers: Headers;
+};
+;
+
+export type postApiPlayersDisconnectResponse = (postApiPlayersDisconnectResponseSuccess)
+
+export const getPostApiPlayersDisconnectUrl = () => {
+
+
+  
+
+  return `/api/players/disconnect`
+}
+
+export const postApiPlayersDisconnect = async (disconnectRequest: DisconnectRequest, options?: RequestInit): Promise<postApiPlayersDisconnectResponse> => {
+  
+  return customInstance<postApiPlayersDisconnectResponse>(getPostApiPlayersDisconnectUrl(),
+  {      
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      disconnectRequest,)
   }
 );}
 

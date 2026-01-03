@@ -42,6 +42,22 @@ namespace Presentation.WebAPI.Controllers
             });
         }
 
+        [HttpPost("disconnect")]
+        public async Task<IActionResult> Disconnect([FromBody] DisconnectRequest request)
+        {
+            var db = _redis.GetDatabase();
+
+            // Remove from "online players" set
+            await db.SetRemoveAsync($"tenant:{request.TenantId}:players:online", request.PlayerId);
+
+            // Delete their state (or set to "Offline")
+            await db.KeyDeleteAsync($"tenant:{request.TenantId}:player:{request.PlayerId}:state");
+
+            return Ok(new { playerId = request.PlayerId, message = "Disconnected" });
+        }
+
+        public record DisconnectRequest(string TenantId, string PlayerId);
+
         [HttpGet("{tenantId}/online")]
         public async Task<IActionResult> GetOnlinePlayers(string tenantId)
         {

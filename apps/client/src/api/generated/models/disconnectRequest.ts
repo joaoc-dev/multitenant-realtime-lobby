@@ -5,5 +5,7 @@
  * OpenAPI spec version: 1.0.0
  */
 
-export * from './connectRequest';
-export * from './disconnectRequest';
+export interface DisconnectRequest {
+  tenantId: string;
+  playerId: string;
+}
