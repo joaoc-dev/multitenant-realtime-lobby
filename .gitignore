@@ -45,6 +45,9 @@ _ReSharper*/
 *.[Rr]e[Ss]harper
 *.DotSettings.user
 
+# OpenAPI cache
+.openapi-cache.json
+
 # -----------------------
 # OS / Editor
 # -----------------------

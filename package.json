@@ -5,7 +5,9 @@
   "description": "Real-Time Multiplayer Lobby System (Multi-Tenant)",
   "main": "index.js",
   "scripts": {
-    "dev": "concurrently --names \"API,CLIENT\" --prefix-colors \"blue,green\" \"cd apps/server/1 - Presentation/Presentation.WebAPI && dotnet watch run\" \"cd apps/client && pnpm dev\"",
+    "dev": "concurrently --names \"API,CLIENT,WATCH\" --prefix-colors \"blue,green,yellow\" \"cd apps/server/1 - Presentation/Presentation.WebAPI && dotnet watch run\" \"cd apps/client && pnpm dev\" \"pnpm watch:api\"",
+    "generate:api": "orval --config orval.config.ts",
+    "watch:api": "tsx scripts/watch-api.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -13,6 +15,10 @@
   "license": "ISC",
   "packageManager": "pnpm@10.13.1",
   "devDependencies": {
-    "concurrently": "^9.2.1"
+    "@types/node": "^20",
+    "concurrently": "^9.2.1",
+    "orval": "^7.17.2",
+    "tsx": "^4.19.2",
+    "typescript": "^5"
   }
 }
