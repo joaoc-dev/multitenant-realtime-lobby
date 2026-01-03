@@ -1,3 +1,4 @@
+using Presentation.WebAPI.Hubs;
 using Scalar.AspNetCore;
 using StackExchange.Redis;
 
@@ -18,7 +19,8 @@ builder.Services.AddCors(options =>
     {
         policy.WithOrigins(allowedOrigins)
               .AllowAnyHeader()
-              .AllowAnyMethod();
+              .AllowAnyMethod()
+              .AllowCredentials(); // Required for SignalR
     });
 });
 
@@ -28,6 +30,8 @@ builder.Services.AddSingleton<IConnectionMultiplexer>(sp =>
     var configuration = ConfigurationOptions.Parse("localhost:6379");
     return ConnectionMultiplexer.Connect(configuration);
 });
+
+builder.Services.AddSignalR();
 
 var app = builder.Build();
 
@@ -45,5 +49,6 @@ app.UseCors();
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapHub<LobbyHub>("/hubs/lobby");
 
 app.Run();

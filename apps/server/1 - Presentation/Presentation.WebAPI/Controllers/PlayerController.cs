@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
+using Presentation.WebAPI.Hubs;
 using StackExchange.Redis;
 
 namespace Presentation.WebAPI.Controllers
@@ -8,10 +10,12 @@ namespace Presentation.WebAPI.Controllers
     public class PlayerController : ControllerBase
     {
         private readonly IConnectionMultiplexer _redis;
+        private readonly IHubContext<LobbyHub> _hubContext;
 
-        public PlayerController(IConnectionMultiplexer redis)
+        public PlayerController(IConnectionMultiplexer redis, IHubContext<LobbyHub> hubContext)
         {
             _redis = redis;
+            _hubContext = hubContext;
         }
 
         [HttpPost("connect")]
@@ -72,10 +76,22 @@ namespace Presentation.WebAPI.Controllers
             });
         }
 
+        [HttpPost("test-push")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IActionResult> TestPush([FromBody] TestPushRequest request)
+        {
+            // Example: Push message via HubContext (Controller approach)
+            await _hubContext.Clients.All.SendAsync("TestMessage", request.Message);
+            
+            return Ok(new { message = "Message sent via API endpoint", sentMessage = request.Message });
+        }
+
         public record ConnectRequest(
             string TenantId,
             string PlayerId,
             string Name
         );
+
+        public record TestPushRequest(string Message);
     }
 }

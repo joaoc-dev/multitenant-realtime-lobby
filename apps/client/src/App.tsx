@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { postApiPlayersConnect } from './api/generated/player/player'
 import type { ConnectRequest } from './api/generated/models'
 import './App.css'
+import { SignalRTest } from './components/SignalRTest'
 
 function App() {
   const [tenantId, setTenantId] = useState('epic-games-123')
@@ -58,7 +59,7 @@ function App() {
           />
         </div>
 
-      <div>
+        <div>
           <label style={{ display: 'block', marginBottom: '0.25rem' }}>Name:</label>
           <input
             type="text"
@@ -83,7 +84,7 @@ function App() {
         }}
       >
         {loading ? 'Connecting...' : 'Connect Player'}
-        </button>
+      </button>
 
       {error && (
         <div style={{ marginTop: '1rem', padding: '1rem', backgroundColor: '#fee', color: '#c00', borderRadius: '4px' }}>
@@ -99,7 +100,9 @@ function App() {
           </pre>
         </div>
       )}
-      </div>
+
+      <SignalRTest />
+    </div>
   )
 }
 

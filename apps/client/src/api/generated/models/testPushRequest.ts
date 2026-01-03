@@ -5,6 +5,6 @@
  * OpenAPI spec version: 1.0.0
  */
 
-export * from './connectRequest';
-export * from './disconnectRequest';
-export * from './testPushRequest';
+export interface TestPushRequest {
+  message: string;
+}

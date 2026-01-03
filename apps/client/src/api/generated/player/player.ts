@@ -6,7 +6,8 @@
  */
 import type {
   ConnectRequest,
-  DisconnectRequest
+  DisconnectRequest,
+  TestPushRequest
 } from '.././models';
 
 import { customInstance } from '../../mutator';
@@ -105,6 +106,39 @@ export const getApiPlayersTenantIdOnline = async (tenantId: string, options?: Re
     method: 'GET'
     
     
+  }
+);}
+
+
+export type postApiPlayersTestPushResponse200 = {
+  data: void
+  status: 200
+}
+    
+export type postApiPlayersTestPushResponseSuccess = (postApiPlayersTestPushResponse200) & {
+  headers: Headers;
+};
+;
+
+export type postApiPlayersTestPushResponse = (postApiPlayersTestPushResponseSuccess)
+
+export const getPostApiPlayersTestPushUrl = () => {
+
+
+  
+
+  return `/api/players/test-push`
+}
+
+export const postApiPlayersTestPush = async (testPushRequest: TestPushRequest, options?: RequestInit): Promise<postApiPlayersTestPushResponse> => {
+  
+  return customInstance<postApiPlayersTestPushResponse>(getPostApiPlayersTestPushUrl(),
+  {      
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      testPushRequest,)
   }
 );}
 
