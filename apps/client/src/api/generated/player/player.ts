@@ -43,3 +43,35 @@ export const postApiPlayersConnect = async (connectRequest: ConnectRequest, opti
 );}
 
 
+export type getApiPlayersTenantIdOnlineResponse200 = {
+  data: void
+  status: 200
+}
+    
+export type getApiPlayersTenantIdOnlineResponseSuccess = (getApiPlayersTenantIdOnlineResponse200) & {
+  headers: Headers;
+};
+;
+
+export type getApiPlayersTenantIdOnlineResponse = (getApiPlayersTenantIdOnlineResponseSuccess)
+
+export const getGetApiPlayersTenantIdOnlineUrl = (tenantId: string,) => {
+
+
+  
+
+  return `/api/players/${tenantId}/online`
+}
+
+export const getApiPlayersTenantIdOnline = async (tenantId: string, options?: RequestInit): Promise<getApiPlayersTenantIdOnlineResponse> => {
+  
+  return customInstance<getApiPlayersTenantIdOnlineResponse>(getGetApiPlayersTenantIdOnlineUrl(tenantId),
+  {      
+    ...options,
+    method: 'GET'
+    
+    
+  }
+);}
+
+

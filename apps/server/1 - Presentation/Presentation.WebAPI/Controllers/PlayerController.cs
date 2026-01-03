@@ -42,6 +42,20 @@ namespace Presentation.WebAPI.Controllers
             });
         }
 
+        [HttpGet("{tenantId}/online")]
+        public async Task<IActionResult> GetOnlinePlayers(string tenantId)
+        {
+            var db = _redis.GetDatabase();
+            var onlinePlayerIds = await db.SetMembersAsync($"tenant:{tenantId}:players:online");
+
+            return Ok(new
+            {
+                tenantId,
+                onlinePlayers = onlinePlayerIds.Select(id => id.ToString()).ToArray(),
+                count = onlinePlayerIds.Length
+            });
+        }
+
         public record ConnectRequest(
             string TenantId,
             string PlayerId,
