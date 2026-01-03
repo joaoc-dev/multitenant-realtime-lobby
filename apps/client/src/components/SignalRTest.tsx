@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import * as signalR from '@microsoft/signalr';
 import { postApiPlayersTestPush } from '../api/generated/player/player';
 import type { TestPushRequest } from '../api/generated/models';
+import { Button } from './ui/button';
 
 export function SignalRTest() {
   const [connection, setConnection] = useState<signalR.HubConnection | null>(null);
@@ -135,50 +136,36 @@ export function SignalRTest() {
 
       <div style={{ marginTop: '1rem', marginBottom: '1rem' }}>
         {!isConnected ? (
-          <button
+          <Button
             onClick={handleConnect}
             disabled={isConnecting}
             style={{ marginRight: '0.5rem' }}
           >
             {isConnecting ? 'Connecting...' : 'Connect'}
-          </button>
+          </Button>
         ) : (
-          <button
+          <Button
             onClick={handleDisconnect}
+            variant="outline"
             style={{ marginRight: '0.5rem' }}
           >
             Disconnect
-          </button>
+          </Button>
         )}
         <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-          <button
+          <Button
             onClick={sendViaHub}
             disabled={!isConnected}
-            style={{
-              backgroundColor: '#28a745',
-              color: 'white',
-              border: 'none',
-              padding: '0.5rem 1rem',
-              borderRadius: '4px',
-              cursor: isConnected ? 'pointer' : 'not-allowed',
-              opacity: isConnected ? 1 : 0.6
-            }}
+            variant="default"
           >
             Send via Hub (Direct)
-          </button>
-          <button
+          </Button>
+          <Button
             onClick={sendViaApi}
-            style={{
-              backgroundColor: '#007bff',
-              color: 'white',
-              border: 'none',
-              padding: '0.5rem 1rem',
-              borderRadius: '4px',
-              cursor: 'pointer'
-            }}
+            variant="default"
           >
             Send via API (REST)
-          </button>
+          </Button>
         </div>
       </div>
 

@@ -3,6 +3,7 @@ import { postApiPlayersConnect } from './api/generated/player/player'
 import type { ConnectRequest } from './api/generated/models'
 import './App.css'
 import { SignalRTest } from './components/SignalRTest'
+import { Button } from './components/ui/button'
 
 function App() {
   const [tenantId, setTenantId] = useState('epic-games-123')
@@ -70,21 +71,12 @@ function App() {
         </div>
       </div>
 
-      <button
+      <Button
         onClick={handleConnect}
         disabled={loading}
-        style={{
-          padding: '0.75rem 1.5rem',
-          fontSize: '1rem',
-          backgroundColor: loading ? '#ccc' : '#007bff',
-          color: 'white',
-          border: 'none',
-          borderRadius: '4px',
-          cursor: loading ? 'not-allowed' : 'pointer',
-        }}
       >
         {loading ? 'Connecting...' : 'Connect Player'}
-      </button>
+      </Button>
 
       {error && (
         <div style={{ marginTop: '1rem', padding: '1rem', backgroundColor: '#fee', color: '#c00', borderRadius: '4px' }}>
