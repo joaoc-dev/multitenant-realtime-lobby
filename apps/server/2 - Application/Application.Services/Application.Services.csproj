@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\4 - Data\Data.Redis\Data.Redis.csproj" />
+  </ItemGroup>
+
 </Project>
