@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "context7": {
+      "command": "node_modules/.bin/context7-mcp",
+      "env": {},
+      "args": []
+    }
+  }
+}
