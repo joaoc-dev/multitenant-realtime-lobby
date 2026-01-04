@@ -82,7 +82,7 @@ namespace Presentation.WebAPI.Controllers
         {
             // Example: Push message via HubContext (Controller approach)
             await _hubContext.Clients.All.SendAsync("TestMessage", request.Message);
-            
+
             return Ok(new { message = "Message sent via API endpoint", sentMessage = request.Message });
         }
 
