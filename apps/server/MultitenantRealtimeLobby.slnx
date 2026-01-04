@@ -5,4 +5,7 @@
   <Folder Name="/2 - Application/">
     <Project Path="2 - Application/Application.Services/Application.Services.csproj" Id="56573e13-3db3-4e1b-b0f2-eed5100007a0" />
   </Folder>
+  <Folder Name="/4 - Data/">
+    <Project Path="4 - Data/Data.Redis/Data.Redis.csproj" Id="18f69b49-a5cd-400e-acbc-7a9ebf352865" />
+  </Folder>
 </Solution>
