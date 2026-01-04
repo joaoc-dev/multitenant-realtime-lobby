@@ -2,4 +2,7 @@
   <Folder Name="/1 - Presentation/">
     <Project Path="1 - Presentation/Presentation.WebAPI/Presentation.WebAPI.csproj" />
   </Folder>
+  <Folder Name="/2 - Application/">
+    <Project Path="2 - Application/Application.Services/Application.Services.csproj" Id="56573e13-3db3-4e1b-b0f2-eed5100007a0" />
+  </Folder>
 </Solution>
