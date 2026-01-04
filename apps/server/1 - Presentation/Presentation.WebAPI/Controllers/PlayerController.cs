@@ -1,7 +1,7 @@
+using Application.Services.Player;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using Presentation.WebAPI.Hubs;
-using StackExchange.Redis;
 
 namespace Presentation.WebAPI.Controllers
 {
@@ -9,12 +9,12 @@ namespace Presentation.WebAPI.Controllers
     [Route("api/players")]
     public class PlayerController : ControllerBase
     {
-        private readonly IConnectionMultiplexer _redis;
         private readonly IHubContext<LobbyHub> _hubContext;
+        private readonly IPlayerService _playerService;
 
-        public PlayerController(IConnectionMultiplexer redis, IHubContext<LobbyHub> hubContext)
+        public PlayerController(IPlayerService playerService, IHubContext<LobbyHub> hubContext)
         {
-            _redis = redis;
+            _playerService = playerService;
             _hubContext = hubContext;
         }
 
@@ -22,42 +22,29 @@ namespace Presentation.WebAPI.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> Connect([FromBody] ConnectRequest request)
         {
-            var db = _redis.GetDatabase();
-
-            // Real-world: Add player to the "online players" list for this tenant
-            // Key: "tenant:epic-games-123:players:online"
-            // Value: Set containing ["alice-123", "bob-456", ...]
-            await db.SetAddAsync($"tenant:{request.TenantId}:players:online", request.PlayerId);
-
-            // Real-world: Store their current state
-            // Key: "tenant:epic-games-123:player:alice-123:state"
-            // Value: "Online"
-            await db.StringSetAsync(
-                $"tenant:{request.TenantId}:player:{request.PlayerId}:state",
-                "Online"
+            var result = await _playerService.ConnectAsync(
+                new PlayerConnectionRequest
+                {
+                    PlayerId = request.PlayerId,
+                    TenantId = request.TenantId
+                }
             );
 
-            return Ok(new
-            {
-                playerId = request.PlayerId,
-                tenantId = request.TenantId,
-                name = request.Name,
-                state = "Online"
-            });
+            return Ok(result);
         }
 
         [HttpPost("disconnect")]
         public async Task<IActionResult> Disconnect([FromBody] DisconnectRequest request)
         {
-            var db = _redis.GetDatabase();
+            var result = await _playerService.DisconnectAsync(
+                new PlayerDisconnectionRequest
+                {
+                    PlayerId = request.PlayerId,
+                    TenantId = request.TenantId
+                }
+            );
 
-            // Remove from "online players" set
-            await db.SetRemoveAsync($"tenant:{request.TenantId}:players:online", request.PlayerId);
-
-            // Delete their state (or set to "Offline")
-            await db.KeyDeleteAsync($"tenant:{request.TenantId}:player:{request.PlayerId}:state");
-
-            return Ok(new { playerId = request.PlayerId, message = "Disconnected" });
+            return Ok(result);
         }
 
         public record DisconnectRequest(string TenantId, string PlayerId);
@@ -65,14 +52,13 @@ namespace Presentation.WebAPI.Controllers
         [HttpGet("{tenantId}/online")]
         public async Task<IActionResult> GetOnlinePlayers(string tenantId)
         {
-            var db = _redis.GetDatabase();
-            var onlinePlayerIds = await db.SetMembersAsync($"tenant:{tenantId}:players:online");
+            var onlinePlayers = await _playerService.GetOnlinePlayersAsync(tenantId);
 
             return Ok(new
             {
                 tenantId,
-                onlinePlayers = onlinePlayerIds.Select(id => id.ToString()).ToArray(),
-                count = onlinePlayerIds.Length
+                onlinePlayers = onlinePlayers.Select(id => id.ToString()).ToArray(),
+                count = onlinePlayers.Count()
             });
         }
 
