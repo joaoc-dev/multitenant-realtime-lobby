@@ -16,6 +16,7 @@
   "packageManager": "pnpm@10.13.1",
   "devDependencies": {
     "@types/node": "^20",
+    "@upstash/context7-mcp": "^2.0.2",
     "concurrently": "^9.2.1",
     "orval": "^7.17.2",
     "tsx": "^4.19.2",
