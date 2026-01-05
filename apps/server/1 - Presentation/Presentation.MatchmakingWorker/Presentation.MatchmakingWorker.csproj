@@ -12,4 +12,9 @@
     <PackageReference Include="Serilog.AspNetCore" Version="10.0.0" />
     <PackageReference Include="Serilog.Enrichers.Environment" Version="3.0.1" />
   </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\2 - Application\Application.Services\Application.Services.csproj" />
+    <ProjectReference Include="..\..\4 - Data\Data.Redis\Data.Redis.csproj" />
+  </ItemGroup>
 </Project>

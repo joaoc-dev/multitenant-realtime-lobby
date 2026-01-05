@@ -1,4 +1,5 @@
 using Presentation.MatchmakingWorker;
+using Presentation.MatchmakingWorker.Configuration;
 using Serilog;
 
 Log.Logger = new LoggerConfiguration()
@@ -19,10 +20,11 @@ try
     // Replace default logger with Serilog
     builder.Services.AddSerilog();
 
+    builder.Services.ConfigureDependencies();
+
     // Register the worker
     builder.Services.AddHostedService<Worker>();
 
-    throw new Exception("Simulated startup failure");
     var host = builder.Build();
     host.Run();
 }
