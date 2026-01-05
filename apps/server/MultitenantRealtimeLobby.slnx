@@ -1,5 +1,6 @@
 <Solution>
   <Folder Name="/1 - Presentation/">
+    <Project Path="1 - Presentation/Presentation.MatchmakingWorker/Presentation.MatchmakingWorker.csproj" Id="a0446ae7-d174-45ca-810a-d445544c8e10" />
     <Project Path="1 - Presentation/Presentation.WebAPI/Presentation.WebAPI.csproj" />
   </Folder>
   <Folder Name="/2 - Application/">
